@@ -1,10 +1,12 @@
 import { login, logout, getInfo } from '@/api/user'
-import { getToken, setToken, removeToken } from '@/utils/auth'
+import { getToken, removeToken, setAccessToken, setRefreshToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
 
 const getDefaultState = () => {
   return {
     token: getToken(),
+    accessToken: '',
+    refreshToken: '',
     name: '',
     avatar: ''
   }
@@ -16,14 +18,17 @@ const mutations = {
   RESET_STATE: (state) => {
     Object.assign(state, getDefaultState())
   },
-  SET_TOKEN: (state, token) => {
-    state.token = token
-  },
   SET_NAME: (state, name) => {
     state.name = name
   },
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar
+  },
+  SET_ACCESS_TOKEN: (state, accessToken) => {
+    state.accessToken = accessToken
+  },
+  SET_REFRESH_TOKEN: (state, refreshToken) => {
+    state.refreshToken = refreshToken
   }
 }
 
@@ -34,8 +39,10 @@ const actions = {
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: password }).then(response => {
         const { data } = response
-        commit('SET_TOKEN', data.token)
-        setToken(data.token)
+        commit('SET_ACCESS_TOKEN', data.accessToken)
+        commit('SET_REFRESH_TOKEN', data.refreshToken)
+        setAccessToken(data.accessToken)
+        setRefreshToken(data.refreshToken)
         resolve()
       }).catch(error => {
         reject(error)
