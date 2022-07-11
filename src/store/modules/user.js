@@ -1,5 +1,5 @@
 import { login, logout, getInfo } from '@/api/user'
-import { getToken, removeToken, setAccessToken, setRefreshToken } from '@/utils/auth'
+import { getAccessToken, getToken, removeToken, setAccessToken, setRefreshToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
 
 const getDefaultState = () => {
@@ -52,23 +52,12 @@ const actions = {
 
   // get user info
   getInfo({ commit, state }) {
-    return new Promise((resolve, reject) => {
-      getInfo(state.token).then(response => {
-        const { data } = response
-
-        if (!data) {
-          return reject('Verification failed, please Login again.')
-        }
-
-        const { name, avatar } = data
-
-        commit('SET_NAME', name)
-        commit('SET_AVATAR', avatar)
-        resolve(data)
-      }).catch(error => {
-        reject(error)
-      })
-    })
+    const token = getAccessToken()
+    const payload = token.split('.')[1]
+    const userInfoJson = JSON.parse(decodeURIComponent(escape(window.atob(payload.replace(/-/g, '+').replace(/_/g, '/')))))
+    const { nickname, avatar } = JSON.parse(userInfoJson.data)
+    commit('SET_NAME', nickname)
+    commit('SET_AVATAR', avatar)
   },
 
   // user logout
