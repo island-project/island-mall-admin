@@ -1,12 +1,11 @@
-import { login, logout, getInfo } from '@/api/user'
-import { getAccessToken, getToken, removeToken, setAccessToken, setRefreshToken } from '@/utils/auth'
+import { login, logout } from '@/api/user'
+import { getAccessToken, getRefreshToken, removeToken, setAccessToken, setRefreshToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
 
 const getDefaultState = () => {
   return {
-    token: getToken(),
-    accessToken: '',
-    refreshToken: '',
+    accessToken: getAccessToken(),
+    refreshToken: getRefreshToken(),
     name: '',
     avatar: ''
   }
@@ -55,7 +54,7 @@ const actions = {
     const token = getAccessToken()
     const payload = token.split('.')[1]
     const userInfoJson = JSON.parse(decodeURIComponent(escape(window.atob(payload.replace(/-/g, '+').replace(/_/g, '/')))))
-    const { nickname, avatar } = JSON.parse(userInfoJson.data)
+    const { nickname, avatar } = userInfoJson.data
     commit('SET_NAME', nickname)
     commit('SET_AVATAR', avatar)
   },

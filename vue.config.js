@@ -38,11 +38,11 @@ module.exports = {
     },
     // 1
     proxy: {
-      '/sys': {
+      '/island': {
         target: 'http://101.34.28.205:7072', // 后端接口地址
         changeOrigin: true, // 是否允许跨域
         pathRewrite: {
-          '^/sys': '/sys' // 讲前面的东西替换为后面的东西
+          '^/island': '/island' // 讲前面的东西替换为后面的东西
         }
       }
     }
