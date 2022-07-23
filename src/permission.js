@@ -26,10 +26,7 @@ router.beforeEach(async(to, from, next) => {
       next({ path: '/' })
       NProgress.done()
     } else {
-      const routers = store.getters.antRoute
-      if (routers && routers.length > 0) {
-        router.addRoutes(routers)
-      } else {
+      if (!store.getters.existRouter) {
         store.dispatch('menu/addRoutes')
       }
       const hasGetUserInfo = store.getters.name

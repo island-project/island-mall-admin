@@ -4,6 +4,7 @@ const getters = {
   accessToken: state => state.user.accessToken,
   avatar: state => state.user.avatar,
   name: state => state.user.name,
-  antRoute: state => state.menu.antRoute
+  antRoute: state => state.menu.antRoute,
+  existRouter: state => state.menu.existRouter
 }
 export default getters

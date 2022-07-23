@@ -4,7 +4,8 @@ import router from '@/router'
 
 const getDefaultState = () => {
   return {
-    antRoute: []
+    antRoute: [],
+    existRouter: false
   }
 }
 
@@ -13,22 +14,20 @@ const state = getDefaultState()
 const mutations = {
   SET_ANT_ROUTE: (state, antRoute) => {
     state.antRoute = antRoute
+  },
+  SET_EXITT_ROUTER: (state, isExist) => {
+    state.existRouter = isExist
   }
 }
 
 const actions = {
   addRoutes({ dispatch, commit }) {
-    new Promise((resolve, reject) => {
-      getMenu().then(response => {
-        const { data } = response
-        dispatch('filterAsyncRouter', data).then(routers => {
-          commit('SET_ANT_ROUTE', routers)
-          router.addRoutes(routers)
-          console.log('路由添加完成')
-        })
-        resolve()
-      }).catch(error => {
-        reject(error)
+    getMenu().then(response => {
+      const { data } = response
+      dispatch('filterAsyncRouter', data).then(routers => {
+        commit('SET_ANT_ROUTE', routers)
+        commit('SET_EXITT_ROUTER', true)
+        router.addRoutes(routers)
       })
     })
   },
