@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="header">
-      <el-card style="width: 100%">
+      <el-card style="width: 100%" shadow="hover">
         <el-row
           type="flex"
           justify="space-between"
@@ -158,7 +158,7 @@
       </el-card>
     </div>
     <div class="main-title">
-      <el-card>
+      <el-card shadow="hover">
         <el-row
           type="flex"
           justify="space-between"
@@ -173,7 +173,7 @@
               <span style="height: 100%;">数据列表</span>
             </div>
           </el-col>
-          <el-col :span="21"></el-col>
+          <el-col :span="21" />
           <el-col :span="1">
             <el-button size="small">添加</el-button>
           </el-col>
@@ -181,7 +181,30 @@
 
       </el-card>
     </div>
-    <div />
+    <div class="main-product-list">
+      <el-card shadow="hover" :body-style="{padding: '0'}">
+        <el-table :data="productList" border>
+          <el-table-column
+            type="selection"
+          />
+          <el-table-column label="编号" prop="id" align="center" width="75" :resizable="false" />
+          <el-table-column label="商品图片" align="center" width="150" :resizable="false">
+            <template slot-scope="scope">
+              <el-image :src="scope.row.mainImage" fit="fill" style="width: 100px; height: 100px" />
+            </template>
+          </el-table-column>
+          <el-table-column label="商品名称" prop="name" align="center" />
+          <el-table-column label="价格/货号" align="center" />
+          <el-table-column label="标签" prop="" align="center" />
+          <el-table-column label="排序" prop="sortNum" align="center" width="75" :resizable="false" />
+          <el-table-column label="SKU库存" prop="" align="center" width="100" :resizable="false">
+            <el-button type="primary" icon="el-icon-edit" circle />
+          </el-table-column>
+          <el-table-column label="销量" prop="salesVolume" align="center" width="90" />
+          <el-table-column label="操作" prop="" align="center" :resizable="false" />
+        </el-table>
+      </el-card>
+    </div>
 
   </div>
 </template>
@@ -225,7 +248,49 @@ export default {
         brand: [
           { required: true, message: '请选择商品品牌', trigger: 'change' }
         ]
-      }
+      },
+      productList: [{
+        'id': 1,
+        'name': '华为 HUAWEI P20',
+        'type': 1,
+        'brand': 1,
+        'price': 3788,
+        'artNo': 6946605,
+        'isInStock': true,
+        'isNew': false,
+        'isRecommend': false,
+        'sortNum': 1,
+        'salesVolume': '12588678',
+        'mainImage': 'https://macro-oss.oss-cn-shenzhen.aliyuncs.com/mall/images/20180607/5ac1bf58Ndefaac16.jpg'
+      },
+      {
+        'id': 2,
+        'name': '小米8 全面屏游戏智能手机 6GB+64GB 黑色 全网通4G 双卡双待',
+        'type': 1,
+        'brand': 2,
+        'price': 2699,
+        'artNo': 7437788,
+        'isInStock': true,
+        'isNew': true,
+        'isRecommend': false,
+        'sortNum': 2,
+        'salesVolume': '643743',
+        'mainImage': 'http://macro-oss.oss-cn-shenzhen.aliyuncs.com/mall/images/20180615/xiaomi.jpg'
+      },
+      {
+        'id': 3,
+        'name': '小米 红米5A 全网通版 3GB+32GB 香槟金 移动联通电信4G手机 双卡双待',
+        'type': 1,
+        'brand': 2,
+        'price': 649,
+        'artNo': 7437789,
+        'isInStock': true,
+        'isNew': false,
+        'isRecommend': true,
+        'sortNum': 3,
+        'salesVolume': '1237889',
+        'mainImage': 'http://macro-oss.oss-cn-shenzhen.aliyuncs.com/mall/images/20180615/5a9d248cN071f4959.jpg'
+      }]
     }
   },
   async mounted() {
@@ -278,6 +343,10 @@ export default {
 }
 
 .main-title {
-  padding: 22px 0 0 0;
+  padding: 15px 0 0 0;
+}
+
+.main-product-list{
+  padding: 15px 0 0 0;
 }
 </style>
