@@ -66,6 +66,7 @@ const actions = {
       resetRouter()
       commit('RESET_STATE')
       location.reload()
+      resolve()
     })
   },
 
