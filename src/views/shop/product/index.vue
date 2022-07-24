@@ -2,35 +2,85 @@
   <div class="app-container">
     <div class="header">
       <el-card style="width: 100%">
-        <el-row type="flex" justify="space-between">
+        <el-row
+          type="flex"
+          justify="space-between"
+          align="middle"
+        >
           <el-col :span="2">
-            <i class="el-icon-search" style="margin-right: 5px" />
+            <i
+              class="el-icon-search"
+              style="margin-right: 5px"
+            />
             <span>筛选搜索</span>
           </el-col>
           <el-col :span="20" />
-          <el-col :span="1" style="transform:translateX(-20px)">
-            <el-button size="small" @click="resetSearchForm">重置</el-button>
+          <el-col
+            :span="1"
+            style="transform:translateX(-30px)"
+          >
+            <el-button
+              size="small"
+              @click="resetSearchForm"
+            >重置</el-button>
           </el-col>
-          <el-col :span="1" style="transform:translateX(-20px)">
-            <el-button type="primary" size="small" @click="queryResults">查询结果</el-button>
+          <el-col
+            :span="1"
+            style="transform:translateX(-20px)"
+          >
+            <el-button
+              type="primary"
+              size="small"
+              @click="queryResults"
+            >查询结果</el-button>
           </el-col>
         </el-row>
         <div class="search-form">
-          <el-form ref="searchForm" hide-required-asterisk :rules="searchFormRules" :inline="true" :model="searchForm">
+          <el-form
+            ref="searchForm"
+            hide-required-asterisk
+            :rules="searchFormRules"
+            :inline="true"
+            :model="searchForm"
+          >
             <el-row>
               <el-col :span="6">
-                <el-form-item label="商品名称:" prop="name">
-                  <el-input v-model="searchForm.name" clearable placeholder="请输入商品名称" size="small" />
+                <el-form-item
+                  label="商品名称:"
+                  prop="name"
+                >
+                  <el-input
+                    v-model="searchForm.name"
+                    clearable
+                    placeholder="请输入商品名称"
+                    size="small"
+                  />
                 </el-form-item>
               </el-col>
               <el-col :span="6">
-                <el-form-item label="商品货号:" prop="id">
-                  <el-input v-model="searchForm.id" clearable placeholder="请输入商品货号" size="small" />
+                <el-form-item
+                  label="商品货号:"
+                  prop="id"
+                >
+                  <el-input
+                    v-model="searchForm.id"
+                    clearable
+                    placeholder="请输入商品货号"
+                    size="small"
+                  />
                 </el-form-item>
               </el-col>
               <el-col :span="6">
-                <el-form-item label="商品分类:" prop="type">
-                  <el-select v-model="searchForm.type" clearable size="small" placeholder="请选择商品类型">
+                <el-form-item
+                  label="商品分类:"
+                  prop="type"
+                >
+                  <el-select
+                    v-model="searchForm.type"
+                    clearable
+                    size="small"
+                    placeholder="请选择商品类型"
+                  >
                     <el-option
                       v-for="item in productTypeOptions"
                       :key="item.value"
@@ -41,8 +91,16 @@
                 </el-form-item>
               </el-col>
               <el-col :span="6">
-                <el-form-item label="商品品牌:" prop="brand">
-                  <el-select v-model="searchForm.brand" clearable size="small" placeholder="请选择商品品牌">
+                <el-form-item
+                  label="商品品牌:"
+                  prop="brand"
+                >
+                  <el-select
+                    v-model="searchForm.brand"
+                    clearable
+                    size="small"
+                    placeholder="请选择商品品牌"
+                  >
                     <el-option
                       v-for="item in productBrandOptions"
                       :key="item.value"
@@ -55,8 +113,15 @@
             </el-row>
             <el-row>
               <el-col :span="6">
-                <el-form-item label="上架状态:" prop="isNowInStock">
-                  <el-select v-model="searchForm.isNowInStock" size="small" placeholder="请选择上架状态">
+                <el-form-item
+                  label="上架状态:"
+                  prop="isNowInStock"
+                >
+                  <el-select
+                    v-model="searchForm.isNowInStock"
+                    size="small"
+                    placeholder="请选择上架状态"
+                  >
                     <el-option
                       v-for="item in nowInStockOptions"
                       :key="item.value"
@@ -67,8 +132,15 @@
                 </el-form-item>
               </el-col>
               <el-col :span="6">
-                <el-form-item label="推荐状态:" prop="isRecommend">
-                  <el-select v-model="searchForm.isRecommend" size="small" placeholder="请选择推荐状态">
+                <el-form-item
+                  label="推荐状态:"
+                  prop="isRecommend"
+                >
+                  <el-select
+                    v-model="searchForm.isRecommend"
+                    size="small"
+                    placeholder="请选择推荐状态"
+                  >
                     <el-option
                       v-for="item in recommendOptions"
                       :key="item.value"
@@ -85,7 +157,30 @@
 
       </el-card>
     </div>
-    <div />
+    <div class="main-title">
+      <el-card>
+        <el-row
+          type="flex"
+          justify="space-between"
+          align="middle"
+        >
+          <el-col :span="2">
+            <div style="margin: auto 0 auto 0">
+              <i
+                class="el-icon-document-copy"
+                style="margin-right: 5px;height: 100%;"
+              />
+              <span style="height: 100%;">数据列表</span>
+            </div>
+          </el-col>
+          <el-col :span="21"></el-col>
+          <el-col :span="1">
+            <el-button size="small">添加</el-button>
+          </el-col>
+        </el-row>
+
+      </el-card>
+    </div>
     <div />
 
   </div>
@@ -104,7 +199,7 @@ export default {
         type: '',
         brand: '',
         isNowInStock: '',
-        isRecommend: true
+        isRecommend: ''
       },
       // 商品分类选择器的选项
       productTypeOptions: [
@@ -116,9 +211,7 @@ export default {
       // 上架状态选择器的选项
       nowInStockOptions: [],
       // 推荐状态选择器的选项
-      recommendOptions: [
-        { value: true, label: '推荐' }, { value: false, label: '暂不推荐' }
-      ],
+      recommendOptions: [],
       searchFormRules: {
         name: [
           { required: true, message: '请输入商品名称', trigger: 'blur' }
@@ -135,9 +228,12 @@ export default {
       }
     }
   },
-  mounted() {
+  async mounted() {
     getOneDictData({ id: 1 }).then(res => {
       this.nowInStockOptions = res.data
+    })
+    getOneDictData({ id: 4 }).then(res => {
+      this.recommendOptions = res.data
     })
   },
   methods: {
@@ -150,8 +246,8 @@ export default {
         id: '',
         type: '',
         brand: '',
-        isNowInStock: true,
-        isRecommend: true
+        isNowInStock: '',
+        isRecommend: ''
       }
       this.$refs['searchForm'].clearValidate()
     },
@@ -173,12 +269,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.app-container{
+.app-container {
   padding: 20px;
 }
 
-.search-form{
-  padding: 15px 0 0 40px
+.search-form {
+  padding: 15px 0 0 40px;
 }
 
+.main-title {
+  padding: 22px 0 0 0;
+}
 </style>
