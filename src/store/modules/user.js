@@ -1,4 +1,4 @@
-import { login, logout } from '@/api/user'
+import { login } from '@/api/user'
 import { getAccessToken, getRefreshToken, removeToken, setAccessToken, setRefreshToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
 
@@ -50,7 +50,7 @@ const actions = {
   },
 
   // get user info
-  getInfo({ commit, state }) {
+  getInfo({ commit }) {
     const token = getAccessToken()
     const payload = token.split('.')[1]
     const userInfoJson = JSON.parse(decodeURIComponent(escape(window.atob(payload.replace(/-/g, '+').replace(/_/g, '/')))))
@@ -62,14 +62,10 @@ const actions = {
   // user logout
   logout({ commit, state }) {
     return new Promise((resolve, reject) => {
-      logout(state.token).then(() => {
-        removeToken() // must remove  token  first
-        resetRouter()
-        commit('RESET_STATE')
-        resolve()
-      }).catch(error => {
-        reject(error)
-      })
+      // TODO 暂时为前端删除token,退出登录接口还没好
+      removeToken() // must remove  token  first
+      resetRouter()
+      commit('RESET_STATE')
     })
   },
 

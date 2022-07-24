@@ -92,6 +92,7 @@
 </template>
 
 <script>
+import { getOneDictData } from '@/api/common'
 
 export default {
   name: 'ShopProduct',
@@ -102,7 +103,7 @@ export default {
         id: '',
         type: '',
         brand: '',
-        isNowInStock: true,
+        isNowInStock: '',
         isRecommend: true
       },
       // 商品分类选择器的选项
@@ -113,9 +114,7 @@ export default {
         { value: '1', label: '艾儿' }, { value: '2', label: '蓝臻' }, { value: '3', label: '雀巢' }
       ],
       // 上架状态选择器的选项
-      nowInStockOptions: [
-        { value: true, label: '上架' }, { value: false, label: '下架' }
-      ],
+      nowInStockOptions: [],
       // 推荐状态选择器的选项
       recommendOptions: [
         { value: true, label: '推荐' }, { value: false, label: '暂不推荐' }
@@ -135,6 +134,11 @@ export default {
         ]
       }
     }
+  },
+  mounted() {
+    getOneDictData({ id: 1 }).then(res => {
+      this.nowInStockOptions = res.data
+    })
   },
   methods: {
     /**
