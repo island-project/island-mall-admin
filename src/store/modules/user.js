@@ -62,10 +62,10 @@ const actions = {
   // user logout
   logout({ commit, state }) {
     return new Promise((resolve, reject) => {
-      // TODO 暂时为前端删除token,退出登录接口还没好
       removeToken() // must remove  token  first
       resetRouter()
       commit('RESET_STATE')
+      location.reload()
     })
   },
 

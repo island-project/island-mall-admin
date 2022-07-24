@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { MessageBox, Message } from 'element-ui'
+import { Message } from 'element-ui'
 import store from '@/store'
 import { getAccessToken } from '@/utils/auth'
 
@@ -47,25 +47,23 @@ service.interceptors.response.use(
 
     // if the custom code is not 20000, it is judged as an error.
     if (res.code !== 200) {
+      // 如果code等于10003,代表token过期,此时尝试刷新token
+      if (res.code === 10003) {
+        // TODO 刷新token
+      }
       Message({
         message: res.msg || 'Error',
         type: 'error',
         duration: 5 * 1000
       })
 
-      // 50008: Illegal token; 50012: Other clients logged in; 50014: Token expired;
-      if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
-        // to re-login
-        MessageBox.confirm('You have been logged out, you can cancel to stay on this page, or log in again', 'Confirm logout', {
-          confirmButtonText: 'Re-Login',
-          cancelButtonText: 'Cancel',
-          type: 'warning'
-        }).then(() => {
-          store.dispatch('user/resetToken').then(() => {
-            location.reload()
-          })
+      // 10004: token无效; 10005: 用户身份认证过期; 10006: 其他认证相关错误
+      if (res.code === 10004 || res.code === 10005 || res.code === 10006) {
+        store.dispatch('user/resetToken').then(() => {
+          location.reload()
         })
       }
+
       return Promise.reject(new Error(res.msg || 'Error'))
     } else {
       return res
