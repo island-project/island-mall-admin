@@ -220,16 +220,16 @@
           </el-table-column>
           <el-table-column label="销量" prop="salesVolume" align="center" width="90" />
           <el-table-column label="操作" prop="" align="center" :resizable="false">
-            <template slot-scope="scope">
-              <el-row style="margin: 10px 0">
-                <el-button size="small">查看</el-button>
-                <el-button size="small">编辑</el-button>
-              </el-row>
-              <el-row style="margin: 10px 0">
-                <el-button size="small">数据</el-button>
-                <el-button size="small" type="danger">删除</el-button>
-              </el-row>
-            </template>
+            <!-- <template slot-scope="scope"> -->
+            <el-row style="margin: 10px 0">
+              <el-button size="small">查看</el-button>
+              <el-button size="small">编辑</el-button>
+            </el-row>
+            <el-row style="margin: 10px 0">
+              <el-button size="small">数据</el-button>
+              <el-button size="small" type="danger">删除</el-button>
+            </el-row>
+            <!-- </template> -->
           </el-table-column>
         </el-table>
       </el-card>
